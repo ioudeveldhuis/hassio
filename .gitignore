@@ -15,7 +15,7 @@
 !esphome/*
 !node-red/*
 !sensors/*
-!startup/*
+!startup/*.sh
 !tts/*
 !www/*
 
