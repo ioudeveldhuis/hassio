@@ -4,18 +4,20 @@
 
 # You can whitelist files/folders with !, these will not be ignored.
 !*.yaml
+!*.ttf
 !.gitignore
 !*.md
+!*.sh
 !.ios.conf
-!automations
-!custom_components
-!deps
-!esphome
-!node-red
-!sensors
-!startup
-!tts
-!www
+!automations/*
+!custom_components/*
+!deps/*
+!esphome/*
+!node-red/*
+!sensors/*
+!startup/*
+!tts/*
+!www/*
 
 # Ignore folders.
 .storage
