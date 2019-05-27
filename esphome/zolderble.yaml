@@ -1,0 +1,5 @@
+substitutions:
+  devicename: "zolderble"
+  devicelocation: "zolder"
+
+<<: !include .ble_base.yaml

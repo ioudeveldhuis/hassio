@@ -1,0 +1,25 @@
+# Toon eneco / rooted
+  - platform: toon_smartmeter
+    host: !secret toonip
+    port: 10080
+    scan_interval: 12
+    resources:
+      - gasused
+      - gasusedcnt
+      - elecusageflowlow
+      - elecusagecntlow
+      - elecusageflowhigh
+      - elecusagecnthigh
+
+  - platform: toon_boilerstatus
+    host: !secret toonip
+    port: 10080
+    scan_interval: 10
+    resources:
+      - boilersetpoint
+      - boilerintemp
+      - boilerouttemp
+      - boilerpressure
+      - boilermodulationlevel
+      - roomtemp
+      - roomtempsetpoint

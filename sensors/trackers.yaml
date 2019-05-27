@@ -1,0 +1,22 @@
+#Template sensor om sensoren te combineren en MQTT device_tracker te voeren
+- platform: template
+  sensors:
+    ivo_occupancy_combined:
+      friendly_name: 'Ivo occupancy'
+      value_template: >-
+          {%- if is_state("person.ivo_oude_veldhuis", "home") and (is_state("binary_sensor.miband_ivo_woonkamer", "on") or is_state("binary_sensor.miband_ivo_slaapkamer", "on") or is_state("binary_sensor.miband_ivo_zolder", "on")or is_state("binary_sensor.miband_ivo_woonkamer", "on") or is_state("binary_sensor.miband_ivo_slaapkamer", "on") or is_state("binary_sensor.miband_ivo_zolder", "on")) %}
+              home
+          {% else %}
+              not_home
+          {% endif %}
+- platform: template
+  sensors:
+    patricia_occupancy_combined:
+      friendly_name: 'Patricia occupancy'
+      value_template: >-
+          {%- if is_state("person.patricia_oude_veldhuis", "home") and (is_state("binary_sensor.miband_patricia_woonkamer", "on") or is_state("binary_sensor.miband_patricia_slaapkamer", "on") or is_state("binary_sensor.miband_patricia_zolder", "on")or is_state("binary_sensor.miband_patricia_woonkamer", "on") or is_state("binary_sensor.miband_patricia_slaapkamer", "on") or is_state("binary_sensor.miband_patricia_zolder", "on")) %}
+              home
+          {% else %}
+              not_home
+          {% endif %}
+

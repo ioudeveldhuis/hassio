@@ -1,0 +1,20 @@
+# automation.yaml
+# Automation die de zelfgemaakte MQTT device_tracker vult naar //
+# aanleiding van de status van de template_sensor
+alias: Aanwezigheid Ivo en Patricia
+id: "39892321"
+initial_state: 'on'
+trigger:
+  - platform: state
+    entity_id: sensor.ivo_occupancy_combined, sensor.patricia_occupancy_combined
+action:
+  service: mqtt.publish
+  data_template:
+    topic: >
+      {% if 'ivo' in trigger.entity_id %}
+        location/ivo
+      {% else %}
+        location/patricia
+      {% endif %}
+    payload_template: "{{ trigger.to_state.state }}"
+    retain: true

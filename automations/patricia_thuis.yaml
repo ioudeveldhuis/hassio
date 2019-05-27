@@ -1,0 +1,22 @@
+alias: "Patricia is thuis"
+initial_state: 'on'
+condition:
+  condition: state
+  entity_id: input_boolean.patricia_home
+  state: 'off'
+# Will trigger if any of the below are 'home'
+trigger:
+  - platform: state
+    entity_id: sensor.patricia_occupancy_combined
+    to: 'home'
+action:
+  - service: homeassistant.turn_on
+    entity_id: input_boolean.patricia_home
+  - service: notify.ios_ivo
+    data_template:
+      title: "Notificatie"
+      message: "Patricia komt thuis"
+      data:
+        push:
+          sound: "US-EN-Morgan-Freeman-Wife-Is-Arriving.wav"
+

@@ -1,0 +1,17 @@
+- platform: template
+  sensors:
+    wasmachine_state_template:
+      friendly_name: 'Wasmachine - Status'
+      value_template: >-
+          {%- if is_state("binary_sensor.washing_machine_running", "off") %}
+              Schakelaar Uit
+          {%  elif states('sensor.sonoff_pow_1_power') | float >= 0.1 and states('sensor.sonoff_pow_1_power') | float < 10.0 | float %}
+              Standby
+          {%  elif states('sensor.sonoff_pow_1_power') | float >= 10.0 and states('sensor.sonoff_pow_1_power') | float < 3600.0 | float %}
+              In gebruik
+          {% else %}
+              Uit
+          {%- endif %}
+ 
+
+

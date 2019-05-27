@@ -1,0 +1,18 @@
+alias: "Ivo is weg"
+initial_state: 'on'
+condition:
+  condition: state
+  entity_id: input_boolean.ivo_home
+  state: 'on'
+# Will only trigger if 'not_home'
+trigger:
+    platform: template
+    value_template: "{% if (is_state('sensor.ivo_occupancy_combined','not_home')) %}true{% endif %}"
+action:
+  - service: homeassistant.turn_off
+    entity_id: input_boolean.ivo_home
+  - service: notify.ios_ivo
+    data_template:
+      title: "Notificatie"
+      message: "Tot ziens"
+

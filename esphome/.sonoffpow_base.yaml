@@ -1,0 +1,121 @@
+esphome:
+  name: $devicename
+  platform: ESP8266
+  board: esp01_1m
+  board_flash_mode: dout
+
+wifi:
+  networks:
+  - ssid: !secret wifi_ssid01
+    password: !secret esphomepassword
+  - ssid: !secret wifi_ssid02
+    password: !secret esphomepassword
+  - ssid: !secret wifi_ssid03
+    password: !secret esphomepassword
+
+# Enable logging
+logger:
+  baud_rate: 0
+
+# Enable Home Assistant API
+api:
+  password: !secret esphomepassword
+  reboot_timeout: 0s
+
+ota:
+  password: !secret esphomepassword
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "${devicelocation} Button"
+    on_press:
+      - switch.toggle: fakebutton
+  - platform: template
+    name: "${devicerunning} Running"
+    filters:
+      - delayed_off: 15s
+    lambda: |-
+      if (isnan(id(power).state)) {
+        return {};
+      } else if (id(power).state > 3) {
+        // Running
+        return true;
+      } else {
+        // Not running
+        return false;
+      }
+
+switch:
+  - platform: template
+    name: "${devicelocation} Relay"
+    optimistic: true
+    id: fakebutton
+    turn_on_action:
+    - switch.turn_on: relay
+    - light.turn_on: led
+    turn_off_action:
+    - switch.turn_off: relay
+    - light.turn_off: led
+  - platform: gpio
+    id: relay
+    pin: GPIO12
+    restore_mode: always_on
+
+output:
+  - platform: esp8266_pwm
+    id: pow_blue_led
+    pin:
+      number: GPIO15
+      inverted: True
+
+light:
+  - platform: monochromatic
+    name: "${devicelocation} Blue LED"
+    output: pow_blue_led
+    id: led
+
+sensor:
+  - platform: wifi_signal
+    name: "${devicelocation} WiFi Signal"
+    update_interval: 60s
+  - platform: uptime
+    name: "${devicelocation} Uptime"
+  - platform: hlw8012
+    sel_pin: 5
+    cf_pin: 14
+    cf1_pin: 13
+    update_interval: 2s
+    current:
+      name: "${devicelocation} Current"
+    voltage:
+      name: "${devicelocation} Voltage"
+    power:
+      name: "${devicelocation} Power"
+      id: power
+      filters:
+        # Multiplication factor from W to kW is 0.001
+#      - multiply: 0.001
+      unit_of_measurement: W #kW
+      on_value_range:
+        - above: 1.1
+          then:
+            - light.turn_on: led
+        - below: 1.0
+          then:
+            - light.turn_off: led
+  - platform: total_daily_energy
+    name: "${devicelocation} Total Daily Energy"
+    power_id: power
+
+# Enable time component to reset energy at midnight
+time:
+  - platform: sntp
+    id: my_time
+    
+text_sensor:
+  - platform: version
+    name: "${devicelocation} ESPHome Version 1.0"

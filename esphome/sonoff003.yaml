@@ -1,0 +1,6 @@
+substitutions:
+  devicename: "sonoff003"
+  devicelocation: "Sonoff POW 3"
+  devicerunning: "Fridge/freezer"
+
+<<: !include .sonoffpow_base.yaml

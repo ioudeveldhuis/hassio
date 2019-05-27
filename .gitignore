@@ -6,6 +6,16 @@
 !*.yaml
 !.gitignore
 !*.md
+!.ios.conf
+!automations
+!custom_components
+!deps
+!esphome
+!node-red
+!sensors
+!startup
+!tts
+!www
 
 # Ignore folders.
 .storage

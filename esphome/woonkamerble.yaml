@@ -1,0 +1,5 @@
+substitutions:
+  devicename: "woonkamerble"
+  devicelocation: "woonkamer"
+
+<<: !include .ble_base.yaml

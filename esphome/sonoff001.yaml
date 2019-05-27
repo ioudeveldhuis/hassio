@@ -1,0 +1,6 @@
+substitutions:
+  devicename: "sonoff001"
+  devicelocation: "Sonoff POW 1"
+  devicerunning: "Washing Machine"
+
+<<: !include .sonoffpow_base.yaml
