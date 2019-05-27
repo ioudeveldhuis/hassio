@@ -1,0 +1,2 @@
+binary_sensor.remote_ui:
+  hidden: true

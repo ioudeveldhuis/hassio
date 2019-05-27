@@ -1,0 +1,22 @@
+- platform: iphonedetect
+  interval_seconds: 10
+  consider_home: 180
+  hosts:
+    iphone_ivo: 192.168.1.10
+    iphone_patricia: 192.168.1.11
+  track_new_devices: false
+
+# Zelf gemaakte om uiteindelijk te gebruiken
+- platform: mqtt
+  devices:
+    ivo_locatie: 'location/ivo'
+    patricia_locatie: 'location/patricia'
+
+#- platform: nmap_tracker
+#  hosts:
+#    - 192.168.1.10
+#    - 192.168.1.11
+#  scan_options: " --privileged -sP "
+##  consider_home: 60
+##  interval_seconds: 15
+#  track_new_devices: yes

@@ -1,0 +1,67 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Amsterdam
+  # Customization file
+  customize: !include customize.yaml
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: -6
+  unit_system: metric
+  temperature_unit: C
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+# person:
+
+sun:
+# ios:
+
+climate:
+  - platform: toon_custom
+    name: Toon Thermostat
+    host: !secret toonip
+    port: 10080
+    scan_interval: 10
+
+frontend:
+  themes: !include theme_clear.yaml
+
+camera:
+  - platform: generic
+    still_image_url: http://www.oudeveldhuis.net/images/1.jpg
+    stream_source: rtsp://192.168.1.9:10554/tcp/av0_0
+
+# zigbee2mqtt_networkmap:
+
+# timer:
+#   zigbee_permit_join:
+#     name: Time remaining
+#     duration: 600 # Updated this to the number of seconds you wish
+
+#device_tracker:
+#  - platform: iphonedetect
+#    interval_seconds: 10
+#    consider_home: 180
+#    hosts:
+#      iphone_ivo: 192.168.1.10
+#      iphone_patricia: 192.168.1.11
+#    track_new_devices: false
+#  - platform: mqtt
+#    devices:
+#      ivo: 'location/ivo'
+#      patricia: 'location/patricia'
+
+custom_updater:
+  card_urls:
+    - https://raw.githubusercontent.com/peternijssen/lovelace-postnl/master/tracker.json
+
+panel_iframe: !include panel_iframe.yaml
+group: !include groups.yaml
+input_boolean: !include input_boolean.yaml
+device_tracker: !include device_tracker.yaml
+#automation: !include automations.yaml
+automation: !include_dir_list automations
+script: !include scripts.yaml
+sensor: !include_dir_merge_list sensors/

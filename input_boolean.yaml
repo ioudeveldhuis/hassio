@@ -1,0 +1,13 @@
+  manual_override:
+    name: Override
+    icon: mdi:robot
+  ivo_home:
+    name: Ivo is Home
+    icon: mdi:human-male
+  patricia_home:
+    name: Patricia is Home
+    icon: mdi:human-female
+  zigbee_permit_join:
+    name: Allow devices to join
+    initial: off
+    icon: mdi:cellphone-wireless
